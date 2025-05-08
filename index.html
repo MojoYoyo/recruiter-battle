@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Battle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Sound toggle button -->
+        <button id="sound-toggle" class="sound-button">
+            <svg xmlns="http://www.w3.org/2000/svg" class="sound-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+        </button>
+
+        <!-- Intro Screen -->
+        <div id="intro-screen" class="screen active">
+            <div class="dialog-box">
+                <h1>Recruiter Battle!</h1>
+                
+                <!-- Pokéball animation -->
+                <div class="pokeball-container">
+                    <div class="pokeball">
+                        <div class="pokeball-line"></div>
+                        <div class="pokeball-button"></div>
+                        <div class="pokeball-shine"></div>
+                    </div>
+                    <div class="pokeball-shadow"></div>
+                </div>
+                
+                <p class="intro-text">
+                    A wild <span class="opponent-name">Przemysław</span> appeared!
+                </p>
+                <p class="intro-details">
+                    To make contact, you must prove your opportunity matches his preferences.
+                    Answer questions about your position wisely!
+                </p>
+                <button id="start-battle" class="start-button">
+                    Start Battle!
+                </button>
+            </div>
+        </div>
+
+        <!-- Battle Screen -->
+        <div id="battle-screen" class="screen">
+            <!-- Battle scene -->
+            <div class="battle-scene">
+                <!-- Background with gradient -->
+                <div class="battle-background">
+                    <!-- Platforms -->
+                    <div class="opponent-platform"></div>
+                    <div class="player-platform"></div>
+                
+                    <!-- Opponent character (Przemysław) -->
+                    <div class="character-container opponent-container">
+                        <!-- HP Bar -->
+                        <div class="hp-bar">
+                            <div class="hp-info">
+                                <div class="name">PRZEMYSŁAW</div>
+                                <div class="level">Lv.29</div>
+                            </div>
+                            <div class="hp-gauge-container">
+                                <div class="hp-label">HP</div>
+                                <div class="hp-gauge">
+                                    <div class="hp-value" id="opponent-hp-bar"></div>
+                                </div>
+                            </div>
+                            <div class="hp-numbers">
+                                <span id="opponent-hp-current">100</span>/<span id="opponent-hp-max">100</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Character sprite -->
+                        <div class="character opponent" id="opponent-sprite">
+                            <div class="pixel-avatar developer">
+                                <div class="head"></div>
+                                <div class="hair"></div>
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                                <div class="mouth"></div>
+                                <div class="body"></div>
+                                <div class="laptop"></div>
+                                <div class="arm left"></div>
+                                <div class="arm right"></div>
+                            </div>
+                            <div class="shadow"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Player character (Recruiter) -->
+                    <div class="character-container player-container">
+                        <!-- Character sprite -->
+                        <div class="character player" id="player-sprite">
+                            <div class="pixel-avatar recruiter">
+                                <div class="head"></div>
+                                <div class="hair"></div>
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                                <div class="mouth"></div>
+                                <div class="body"></div>
+                                <div class="tie"></div>
+                                <div class="arm left"></div>
+                                <div class="arm right"></div>
+                            </div>
+                            <div class="shadow"></div>
+                        </div>
+                        
+                        <!-- HP Bar -->
+                        <div class="hp-bar">
+                            <div class="hp-info">
+                                <div class="name">RECRUITER</div>
+                                <div class="level">Lv.30</div>
+                            </div>
+                            <div class="hp-gauge-container">
+                                <div class="hp-label">HP</div>
+                                <div class="hp-gauge">
+                                    <div class="hp-value" id="player-hp-bar"></div>
+                                </div>
+                            </div>
+                            <div class="hp-numbers">
+                                <span id="player-hp-current">100</span>/<span id="player-hp-max">100</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Battle effects -->
+                    <div class="battle-effects" id="attack-effects">
+                        <div class="effect-dot dot1"></div>
+                        <div class="effect-dot dot2"></div>
+                        <div class="effect-dot dot3"></div>
+                    </div>
+                    
+                    <!-- Battle message -->
+                    <div class="battle-message" id="battle-message">
+                        <p id="message-text"></p>
+                    </div>
+                </div>
+                
+                <!-- Dialog and options -->
+                <div class="battle-ui">
+                    <div class="question-box">
+                        <div class="question-prompt">What will you do?</div>
+                        <div id="current-question" class="question-text"></div>
+                        
+                        <!-- Small decorative Pokeball -->
+                        <div class="mini-pokeball"></div>
+                    </div>
+                    
+                    <!-- Answer options -->
+                    <div class="options-grid" id="options-container">
+                        <!-- Options will be inserted here by JavaScript -->
+                    </div>
+                    
+                    <!-- Control area -->
+                    <div class="control-menu">
+                        <div class="control-button fight">FIGHT</div>
+                        <div class="control-button bag disabled">BAG</div>
+                        <div class="control-button resume disabled">RESUME</div>
+                        <div class="control-button run disabled">RUN</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen">
+            <div class="dialog-box">
+                <!-- Victory animation -->
+                <div class="victory-animation">
+                    <div class="trophy">
+                        <div class="trophy-top"></div>
+                        <div class="trophy-body"></div>
+                        <div class="trophy-base"></div>
+                        <div class="trophy-bottom"></div>
+                        <div class="sparkle sparkle1"></div>
+                        <div class="sparkle sparkle2"></div>
+                        <div class="sparkle sparkle3"></div>
+                        <div class="sparkle sparkle4"></div>
+                    </div>
+                </div>
+                
+                <div class="result-box victory-box">
+                    <h1>VICTORY!</h1>
+                    <p>
+                        Recruiter won the battle!
+                    </p>
+                    <p>
+                        <span class="opponent-name">PRZEMYSŁAW</span> is impressed!
+                    </p>
+                    <p class="xp-gain">You gain 1500 XP and a job interview!</p>
+                </div>
+                
+                <div class="contact-box">
+                    <div class="victory-message">Your job opportunity matches my criteria!</div>
+                    <div class="contact-title">Contact:</div>
+                    <p class="contact-email">borowiecki.przemyslaw@gmail.com</p>
+                </div>
+                
+                <button id="play-again-victory" class="restart-button victory-button">
+                    Play Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <div class="dialog-box">
+                <!-- Game over animation -->
+                <div class="game-over-animation">
+                    <div class="fainted-character">
+                        <div class="fainted-shadow"></div>
+                        <div class="pixel-avatar recruiter fainted">
+                            <div class="head"></div>
+                            <div class="hair"></div>
+                            <div class="eye-x left"></div>
+                            <div class="eye-x right"></div>
+                            <div class="mouth"></div>
+                            <div class="body"></div>
+                        </div>
+                        <div class="swirl"></div>
+                    </div>
+                </div>
+                
+                <div class="result-box defeat-box">
+                    <h1>GAME OVER</h1>
+                    <p>
+                        Recruiter fainted!
+                    </p>
+                    <p class="xp-gain">You got 0 XP!</p>
+                </div>
+                
+                <div class="contact-box defeat-message">
+                    <p>
+                        Sorry, but this opportunity doesn't match my criteria. 
+                        Thanks for your interest, but I'll have to pass on this one.
+                    </p>
+                </div>
+                
+                <button id="try-again" class="restart-button defeat-button">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
